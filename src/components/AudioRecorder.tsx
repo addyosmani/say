@@ -1,16 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle } from 'react';
 import { LiveAudioVisualizer } from 'react-audio-visualize';
 
 interface Props {
   onRecordingComplete: (blob: Blob) => void;
+  stopRecordingRef: React.RefObject<() => void>
 }
 
-const AudioRecorder: React.FC<Props> = ({ onRecordingComplete }) => {
+const AudioRecorder: React.FC<Props> = ({ onRecordingComplete, stopRecordingRef }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const timeInterval = useRef<number | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  useImperativeHandle(stopRecordingRef, () => stopRecording);
 
   const startRecording = async () => {
     try {
@@ -41,7 +43,6 @@ const AudioRecorder: React.FC<Props> = ({ onRecordingComplete }) => {
 
   const stopRecording = () => {
     if (mediaRecorder && isRecording) {
-      mediaRecorder.stop();
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
       }
