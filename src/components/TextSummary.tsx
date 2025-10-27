@@ -1,19 +1,15 @@
 import React from 'react';
 import { IoClose, IoSettingsSharp } from 'react-icons/io5';
 import Progress from './Progress';
-// ninja focus touch <
 import { summarizationModels, SummarizationModel } from '../hooks/useSummarizer';
-// ninja focus touch >
 
 interface TextSummaryProps {
   summary: string | null;
   isLoading: boolean;
   progress: { status: string; progress?: number } | null;
   onClose: () => void;
-  // ninja focus touch <
   model: SummarizationModel;
   onModelChange: (model: SummarizationModel) => void;
-  // ninja focus touch >
 }
 
 export default function TextSummary({
@@ -53,7 +49,6 @@ export default function TextSummary({
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Model Selection
           </label>
-          {/* ninja focus touch < */}
           <select
             value={model}
             onChange={(e) => onModelChange(e.target.value as SummarizationModel)}
@@ -63,7 +58,6 @@ export default function TextSummary({
               <option key={model} value={model}>{model}</option>
             ))}
           </select>
-          {/* ninja focus touch > */}
         </div>
       )}
 
