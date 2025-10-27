@@ -13,14 +13,14 @@ interface TextSummaryProps {
   // ninja focus touch >
 }
 
-export const TextSummary: React.FC<TextSummaryProps> = ({
+export default function TextSummary({
   summary,
   isLoading,
   progress,
   onClose,
   model,
   onModelChange,
-}) => {
+}: TextSummaryProps) {
   const [showSettings, setShowSettings] = React.useState(false);
 
   if (!isLoading && !summary) return null;

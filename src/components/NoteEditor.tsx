@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { IoCopyOutline } from 'react-icons/io5';
 import { AiOutlineRobot } from 'react-icons/ai';
-import Transcript from "./Transcript";
+import Transcript from './Transcript';
+import TextSummary from './TextSummary';
 import { Transcriber } from "../hooks/useTranscriber";
 import { useSummarizer } from '../hooks/useSummarizer';
-import { TextSummary } from './TextSummary';
 
 interface NoteVersion {
   content: string;
