@@ -7,8 +7,10 @@ interface TextSummaryProps {
   isLoading: boolean;
   progress: { status: string; progress?: number } | null;
   onClose: () => void;
+  // ninja focus touch <
   model: 't5-small' | 't5-base';
   onModelChange: (model: 't5-small' | 't5-base') => void;
+  // ninja focus touch >
 }
 
 export const TextSummary: React.FC<TextSummaryProps> = ({
@@ -48,6 +50,7 @@ export const TextSummary: React.FC<TextSummaryProps> = ({
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Model Selection
           </label>
+          {/* ninja focus touch < */}
           <select
             value={model}
             onChange={(e) => onModelChange(e.target.value as 't5-small' | 't5-base')}
@@ -56,6 +59,7 @@ export const TextSummary: React.FC<TextSummaryProps> = ({
             <option value="t5-small">t5-small (faster)</option>
             <option value="t5-base">t5-base (better quality)</option>
           </select>
+          {/* ninja focus touch > */}
         </div>
       )}
 

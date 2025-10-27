@@ -1,12 +1,16 @@
 import { useState, useCallback } from 'react';
 import { pipeline } from '@xenova/transformers';
 
+// ninja focus touch <
 type ModelType = 't5-small' | 't5-base';
+// ninja focus touch >
 
 export const useSummarizer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<{ status: string; progress?: number } | null>(null);
+  // ninja focus touch <
   const [model, setModel] = useState<ModelType>('t5-small');
+  // ninja focus touch >
   const [summary, setSummary] = useState<string | null>(null);
 
   const summarize = useCallback(async (text: string) => {
