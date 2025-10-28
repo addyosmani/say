@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { pipeline } from '@xenova/transformers';
 
-type ModelType = 't5-small' | 't5-base';
+export const summarizationModels = ['t5-small', 't5-base', 'distilbart-cnn-6-6', 'bart-large-cnn'] as const;
+export type SummarizationModel = typeof summarizationModels[number];
 
 export const useSummarizer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<{ status: string; progress?: number } | null>(null);
-  const [model, setModel] = useState<ModelType>('t5-small');
+  const [model, setModel] = useState<SummarizationModel>(summarizationModels[0]);
   const [summary, setSummary] = useState<string | null>(null);
 
   const summarize = useCallback(async (text: string) => {
@@ -39,7 +40,7 @@ export const useSummarizer = () => {
     setSummary(null);
   }, []);
 
-  const changeModel = useCallback((newModel: ModelType) => {
+  const changeModel = useCallback((newModel: SummarizationModel) => {
     setModel(newModel);
   }, []);
 

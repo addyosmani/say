@@ -1,24 +1,25 @@
 import React from 'react';
 import { IoClose, IoSettingsSharp } from 'react-icons/io5';
 import Progress from './Progress';
+import { summarizationModels, SummarizationModel } from '../hooks/useSummarizer';
 
 interface TextSummaryProps {
   summary: string | null;
   isLoading: boolean;
   progress: { status: string; progress?: number } | null;
   onClose: () => void;
-  model: 't5-small' | 't5-base';
-  onModelChange: (model: 't5-small' | 't5-base') => void;
+  model: SummarizationModel;
+  onModelChange: (model: SummarizationModel) => void;
 }
 
-export const TextSummary: React.FC<TextSummaryProps> = ({
+export default function TextSummary({
   summary,
   isLoading,
   progress,
   onClose,
   model,
   onModelChange,
-}) => {
+}: TextSummaryProps) {
   const [showSettings, setShowSettings] = React.useState(false);
 
   if (!isLoading && !summary) return null;
@@ -50,11 +51,12 @@ export const TextSummary: React.FC<TextSummaryProps> = ({
           </label>
           <select
             value={model}
-            onChange={(e) => onModelChange(e.target.value as 't5-small' | 't5-base')}
+            onChange={(e) => onModelChange(e.target.value as SummarizationModel)}
             className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option value="t5-small">t5-small (faster)</option>
-            <option value="t5-base">t5-base (better quality)</option>
+            {summarizationModels.map(model => (
+              <option key={model} value={model}>{model}</option>
+            ))}
           </select>
         </div>
       )}
