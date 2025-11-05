@@ -6,7 +6,9 @@ import { summarizationModels, SummarizationModel } from '../hooks/useSummarizer'
 interface TextSummaryProps {
   summary: string | null;
   isLoading: boolean;
+  // ninja focus touch <
   progress: { status: string; progress?: number } | null;
+  // ninja focus touch >
   onClose: () => void;
   model: SummarizationModel;
   onModelChange: (model: SummarizationModel) => void;
@@ -15,7 +17,9 @@ interface TextSummaryProps {
 export default function TextSummary({
   summary,
   isLoading,
+  // ninja focus touch <
   progress,
+  // ninja focus touch >
   onClose,
   model,
   onModelChange,
@@ -61,6 +65,7 @@ export default function TextSummary({
         </div>
       )}
 
+      {/* ninja focus touch < */}
       {isLoading && progress && (
         <div className="mb-4">
           <Progress 
@@ -69,6 +74,7 @@ export default function TextSummary({
           />
         </div>
       )}
+      {/* ninja focus touch > */}
 
       {summary && (
         <div className="prose max-w-none">
