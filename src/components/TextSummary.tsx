@@ -2,16 +2,12 @@ import React from 'react';
 import { IoClose, IoSettingsSharp } from 'react-icons/io5';
 import Progress from './Progress';
 import { summarizationModels, SummarizationModel } from '../hooks/useSummarizer';
-// ninja focus touch <
 import type { ProgressItem } from '../types/model';
-// ninja focus touch >
 
 interface TextSummaryProps {
   summary: string | null;
   isLoading: boolean;
-  // ninja focus touch <
   progressItems: ProgressItem[];
-  // ninja focus touch >
   onClose: () => void;
   model: SummarizationModel;
   onModelChange: (model: SummarizationModel) => void;
@@ -20,9 +16,7 @@ interface TextSummaryProps {
 export default function TextSummary({
   summary,
   isLoading,
-  // ninja focus touch <
   progressItems,
-  // ninja focus touch >
   onClose,
   model,
   onModelChange,
@@ -68,7 +62,6 @@ export default function TextSummary({
         </div>
       )}
 
-      {/* ninja focus touch < */}
       {progressItems.length > 0 && (
         <div className="space-y-2">
           {progressItems.map(item => (
@@ -76,7 +69,6 @@ export default function TextSummary({
           ))}
         </div>
       )}
-      {/* ninja focus touch > */}
 
       {summary && (
         <div className="prose max-w-none">

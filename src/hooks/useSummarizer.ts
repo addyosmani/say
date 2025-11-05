@@ -8,9 +8,7 @@ export type SummarizationModel = typeof summarizationModels[number];
 
 export const useSummarizer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // ninja focus touch <
   const [progressItems, setProgressItems] = useState<ProgressItem[]>([]);
-  // ninja focus touch >
   const [model, setModel] = useState<SummarizationModel>(summarizationModels[0]);
   const [summary, setSummary] = useState<string | null>(null);
 
@@ -20,7 +18,6 @@ export const useSummarizer = () => {
       setSummary(null);
       
       const summarizer = await pipeline('summarization', `Xenova/${model}`, {
-        // ninja focus touch <
         progress_callback: (data: ProgressItem) => {
           switch (data.status) {
             case "initiate": {
@@ -46,7 +43,6 @@ export const useSummarizer = () => {
             }
           }
         }
-        // ninja focus touch >
       });
 
       const output = await summarizer(text, {
@@ -74,9 +70,7 @@ export const useSummarizer = () => {
 
   return {
     isLoading,
-    // ninja focus touch <
     progressItems,
-    // ninja focus touch >
     summary,
     model,
     summarize,

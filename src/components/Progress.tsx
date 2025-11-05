@@ -1,4 +1,3 @@
-// ninja focus touch <
 import React from "react";
 
 interface ProgressProps {
@@ -21,4 +20,3 @@ const Progress: React.FC<ProgressProps> = ({ text, percentage }) => {
 };
 
 export default Progress;
-// ninja focus touch >
