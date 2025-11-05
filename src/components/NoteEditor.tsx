@@ -52,7 +52,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
   const {
     isLoading,
     // ninja focus touch <
-    progress,
+    progressItems,
     // ninja focus touch >
     summary,
     model,
@@ -281,7 +281,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
         summary={summary}
         isLoading={isLoading}
         // ninja focus touch <
-        progress={progress}
+        progressItems={progressItems}
         // ninja focus touch >
         onClose={clearSummary}
         model={model}
