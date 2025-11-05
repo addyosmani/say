@@ -330,6 +330,7 @@ export function AudioManager({ transcriber, onTranscriptionComplete }: Props) {
                         Export Audio
                     </button>
 
+                    {/* ninja focus touch < */}
                     {transcriber.progressItems.length > 0 && (
                         <div className="space-y-2">
                             <label className="text-sm text-slate-600">
@@ -344,6 +345,7 @@ export function AudioManager({ transcriber, onTranscriptionComplete }: Props) {
                             ))}
                         </div>
                     )}
+                    {/* ninja focus touch > */}
                 </div>
             )}
 
