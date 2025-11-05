@@ -6,7 +6,7 @@ interface ProgressProps {
   percentage?: number;
 }
 
-export const Progress: React.FC<ProgressProps> = ({ text, percentage }) => {
+const Progress: React.FC<ProgressProps> = ({ text, percentage }) => {
   return (
     <div className="w-full max-w-full">
       {text && <div className="text-sm text-gray-600 mb-1">{text}</div>}
