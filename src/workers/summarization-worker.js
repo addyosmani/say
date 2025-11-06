@@ -20,7 +20,7 @@ class PipelineFactory {
     static async getInstance(progress_callback = null) {
         if (this.instance === null) {
             this.instance = pipeline(this.task, this.model, {
-                progress_callback,
+                progress_callback
             });
         }
 
@@ -31,10 +31,9 @@ class PipelineFactory {
 self.addEventListener("message", async (event) => {
     const message = event.data;
 
-    // Do some work...
     let summary = await summarize(
         message.text,
-        message.model,
+        message.model
     );
     if (summary === null) return;
 

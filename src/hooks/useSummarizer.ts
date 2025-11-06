@@ -76,13 +76,14 @@ export const useSummarizer = () => {
       
       webWorker.postMessage({
         text,
-        model,
+        model
       });
     } catch (error) {
       console.error('Summarization error:', error);
+      throw error;
+    } finally {
       setIsLoading(false);
       setProgressItems([]);
-      throw error;
     }
   }, [model, webWorker]);
   // ninja focus touch >
