@@ -70,7 +70,6 @@ const transcribe = async (
     subtask,
     language,
 ) => {
-
     const isDistilWhisper = model.startsWith("distil-whisper/");
 
     // Use the model name directly since it's already properly formatted in ModelSelector.tsx
