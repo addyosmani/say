@@ -1,8 +1,6 @@
 import { useState, useCallback } from 'react';
-// ninja focus touch <
-import { useWorker } from './useWorker';
-// ninja focus touch >
 
+import { useWorker } from './useWorker';
 import type { ProgressItem } from '../types/model';
 
 export const summarizationModels = ['t5-small', 't5-base', 'distilbart-cnn-6-6', 'bart-large-cnn'] as const;
@@ -14,7 +12,6 @@ export const useSummarizer = () => {
   const [model, setModel] = useState<SummarizationModel>(summarizationModels[0]);
   const [summary, setSummary] = useState<string | null>(null);
 
-  // ninja focus touch <
   const webWorker = useWorker("summarization", (event) => {
     const message = event.data;
     // Update the state with the result
@@ -59,9 +56,7 @@ export const useSummarizer = () => {
         break;
     }
   });
-  // ninja focus touch >
 
-  // ninja focus touch <
   const summarize = useCallback(async (text: string) => {
     setIsLoading(true);
     setSummary(null);
@@ -71,7 +66,6 @@ export const useSummarizer = () => {
       model: `Xenova/${model}`
     });
   }, [model, webWorker]);
-  // ninja focus touch >
 
   const clearSummary = useCallback(() => {
     setSummary(null);

@@ -1,4 +1,3 @@
-// ninja focus touch <
 /* eslint-disable camelcase */
 import { pipeline, env } from "@xenova/transformers";
 
@@ -75,4 +74,3 @@ self.addEventListener("message", async (event) => {
         });
     }
 });
-// ninja focus touch >
