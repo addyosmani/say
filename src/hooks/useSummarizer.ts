@@ -8,12 +8,6 @@ import type { ProgressItem } from '../types/model';
 export const summarizationModels = ['t5-small', 't5-base', 'distilbart-cnn-6-6', 'bart-large-cnn'] as const;
 export type SummarizationModel = typeof summarizationModels[number];
 
-// ninja focus touch <
-interface SummarizerCompleteData {
-    data: string;
-}
-// ninja focus touch >
-
 export const useSummarizer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progressItems, setProgressItems] = useState<ProgressItem[]>([]);
@@ -27,19 +21,18 @@ export const useSummarizer = () => {
     switch (message.status) {
       case "progress":
         // Model file progress: update one of the progress items.
-        setProgressItems((prev) =>
-          prev.map((item) => {
+        setProgressItems(prev =>
+          prev.map(item => {
             if (item.file === message.file) {
               return { ...item, progress: message.progress };
             }
             return item;
-          }),
+          })
         );
         break;
       case "complete":
         // Received complete summary
-        const completeMessage = message as SummarizerCompleteData;
-        setSummary(completeMessage.data);
+        setSummary(message.data);
         setIsLoading(false);
         setProgressItems([]);
         break;
@@ -58,8 +51,8 @@ export const useSummarizer = () => {
         break;
       case "done":
         // Model file loaded: remove the progress item from the list.
-        setProgressItems((prev) =>
-          prev.filter((item) => item.file !== message.file),
+        setProgressItems(prev =>
+          prev.filter(item => item.file !== message.file)
         );
         break;
       default:
@@ -70,21 +63,13 @@ export const useSummarizer = () => {
 
   // ninja focus touch <
   const summarize = useCallback(async (text: string) => {
-    try {
-      setIsLoading(true);
-      setSummary(null);
-      
-      webWorker.postMessage({
-        text,
-        model
-      });
-    } catch (error) {
-      console.error('Summarization error:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-      setProgressItems([]);
-    }
+    setIsLoading(true);
+    setSummary(null);
+
+    webWorker.postMessage({
+      text,
+      model: `Xenova/${model}`
+    });
   }, [model, webWorker]);
   // ninja focus touch >
 
