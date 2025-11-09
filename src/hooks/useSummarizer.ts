@@ -1,12 +1,14 @@
 import { useState, useCallback } from 'react';
 import { pipeline } from '@xenova/transformers';
 
+import type { ProgressItem } from '../types/model';
+
 export const summarizationModels = ['t5-small', 't5-base', 'distilbart-cnn-6-6', 'bart-large-cnn'] as const;
 export type SummarizationModel = typeof summarizationModels[number];
 
 export const useSummarizer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState<{ status: string; progress?: number } | null>(null);
+  const [progressItems, setProgressItems] = useState<ProgressItem[]>([]);
   const [model, setModel] = useState<SummarizationModel>(summarizationModels[0]);
   const [summary, setSummary] = useState<string | null>(null);
 
@@ -16,8 +18,30 @@ export const useSummarizer = () => {
       setSummary(null);
       
       const summarizer = await pipeline('summarization', `Xenova/${model}`, {
-        progress_callback: (data: { status: string; progress?: number }) => {
-          setProgress(data);
+        progress_callback: (data: ProgressItem) => {
+          switch (data.status) {
+            case "initiate": {
+              setProgressItems((prev) => [...prev, data]);
+              break;
+            }
+            case "progress": {
+              setProgressItems(prev =>
+                prev.map(item => {
+                  if (item.file === data.file) {
+                      return { ...item, progress: data.progress };
+                  }
+                  return item;
+                })
+              );
+              break;
+            }
+            case "done": {
+              setProgressItems(prev =>
+                prev.filter(item => item.file !== data.file)
+              );
+              break;
+            }
+          }
         }
       });
 
@@ -32,7 +56,7 @@ export const useSummarizer = () => {
       throw error;
     } finally {
       setIsLoading(false);
-      setProgress(null);
+      setProgressItems([]);
     }
   }, [model]);
 
@@ -46,7 +70,7 @@ export const useSummarizer = () => {
 
   return {
     isLoading,
-    progress,
+    progressItems,
     summary,
     model,
     summarize,

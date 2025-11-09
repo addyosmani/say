@@ -1,15 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { useWorker } from "./useWorker";
 import Constants from "../utils/Constants";
+import type { ProgressItem } from "../types/model";
 
-interface ProgressItem {
-    file: string;
-    loaded: number;
-    progress: number;
-    total: number;
-    name: string;
-    status: string;
-}
 
 interface TranscriberUpdateData {
     data: [

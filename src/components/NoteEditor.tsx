@@ -51,7 +51,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
   const editorRef = useRef<any>(null);
   const {
     isLoading,
-    progress,
+    progressItems,
     summary,
     model,
     summarize,
@@ -278,7 +278,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
       <TextSummary
         summary={summary}
         isLoading={isLoading}
-        progress={progress}
+        progressItems={progressItems}
         onClose={clearSummary}
         model={model}
         onModelChange={changeModel}

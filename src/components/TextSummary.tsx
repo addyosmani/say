@@ -2,11 +2,12 @@ import React from 'react';
 import { IoClose, IoSettingsSharp } from 'react-icons/io5';
 import Progress from './Progress';
 import { summarizationModels, SummarizationModel } from '../hooks/useSummarizer';
+import type { ProgressItem } from '../types/model';
 
 interface TextSummaryProps {
   summary: string | null;
   isLoading: boolean;
-  progress: { status: string; progress?: number } | null;
+  progressItems: ProgressItem[];
   onClose: () => void;
   model: SummarizationModel;
   onModelChange: (model: SummarizationModel) => void;
@@ -15,7 +16,7 @@ interface TextSummaryProps {
 export default function TextSummary({
   summary,
   isLoading,
-  progress,
+  progressItems,
   onClose,
   model,
   onModelChange,
@@ -61,12 +62,11 @@ export default function TextSummary({
         </div>
       )}
 
-      {isLoading && progress && (
-        <div className="mb-4">
-          <Progress 
-            text={progress.status} 
-            percentage={progress.progress || 0} 
-          />
+      {progressItems.length > 0 && (
+        <div className="space-y-2">
+          {progressItems.map(item => (
+            <Progress key={item.file} text={item.file} percentage={item.progress} />
+          ))}
         </div>
       )}
 
