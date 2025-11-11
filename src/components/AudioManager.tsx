@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Modal from "./modal/Modal";
 import { UrlInput } from "./modal/UrlInput";
@@ -32,6 +32,7 @@ export function AudioManager({ transcriber, onTranscriptionComplete }: Props) {
     const [audioDownloadUrl, setAudioDownloadUrl] = useState<string | undefined>(undefined);
     const [showUrlModal, setShowUrlModal] = useState(false);
     const [showRecordModal, setShowRecordModal] = useState(false);
+    const stopRecordingRef = useRef<() => void>(null);
 
     const isAudioLoading = progress !== undefined;
 
@@ -368,9 +369,12 @@ export function AudioManager({ transcriber, onTranscriptionComplete }: Props) {
                 show={showRecordModal}
                 title="Record Audio"
                 content={
-                    <AudioRecorder onRecordingComplete={setAudioFromRecording} />
+                    <AudioRecorder onRecordingComplete={setAudioFromRecording} stopRecordingRef={stopRecordingRef} />
                 }
-                onClose={() => setShowRecordModal(false)}
+                onClose={() => {
+                    stopRecordingRef.current?.()
+                    setShowRecordModal(false)
+                }}
                 onSubmit={() => {}}
             />
         </div>
