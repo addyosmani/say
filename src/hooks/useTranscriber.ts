@@ -53,7 +53,7 @@ export function useTranscriber(): Transcriber {
 
     const [progressItems, setProgressItems] = useState<ProgressItem[]>([]);
 
-    const webWorker = useWorker((event) => {
+    const webWorker = useWorker("transcription", (event) => {
         const message = event.data;
         // Update the state with the result
         switch (message.status) {
